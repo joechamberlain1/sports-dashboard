@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import useWebSocket from './hooks/useWebSocket'
 import Header from './components/Header'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const message = useWebSocket()
 
   return (
     <>
+      {message && message.message}     
       <Header />
     </>
   )
 }
 
-export default App
+export default App 
