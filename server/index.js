@@ -3,18 +3,26 @@ const { default: axios } = require('axios')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const { WebSocketServer } = require('ws') 
+const { WebSocketServer } = require('ws')
+const { fetchMatches } = require('./services/footballApi')
 
 app.use(cors({ origin: 'http://localhost:5173'}))
 
 const wss = new WebSocketServer({ port: 8080 })
 const clients = new Set()
 
-setInterval(() => {
-  clients.forEach(client => {
-    client.send(JSON.stringify({ message: 'ping', time: new Date().toISOString() }))
-  })
-}, 3000)
+setInterval(async () => {
+  try {
+    if (clients.size === 0) return
+    console.log('Fetching matches, connected clients:', clients.size)
+    const matches = await fetchMatches()
+    clients.forEach(client => {
+      client.send(JSON.stringify(matches))
+    })
+  } catch (error) {
+    console.log(error.message)
+  }
+}, 30000)
 
 wss.on('connection', (socket) => {
     clients.add(socket)
@@ -36,12 +44,8 @@ app.listen(process.env.PORT, () => {
 
 app.get('/matches', async (req, res) => {
   try {
-    const response = await axios.get('https://api.football-data.org/v4/matches', {
-    headers: {
-        'X-Auth-Token': process.env.FOOTBALL_API_KEY
-    }
-})
-    res.json(response.data)
+    const matches = await fetchMatches()
+    res.json(matches)
   } catch (error) {
     console.log(error.message)
     res.status(500).json({ error: 'Failed to fetch matches' })
