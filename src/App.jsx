@@ -22,10 +22,10 @@ function App() {
   }, [message])
 
   return (
-    <>
+  <div className="bg-gray-950 min-h-screen p-6">
       <Header />
       <MatchList matches={matches} />
-    </>
+    </div>
   )
 }
 
