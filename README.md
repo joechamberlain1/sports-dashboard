@@ -1,16 +1,53 @@
-# React + Vite
+# Newcastle United Live Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live scores, fixtures and results for Newcastle United FC.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js v18+
+- A free API key from [football-data.org](https://www.football-data.org/)
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Clone the repository
 
-## Expanding the ESLint configuration
+```bash
+git clone https://github.com/yourusername/sports-dashboard.git
+cd sports-dashboard
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Install frontend dependencies
+
+```bash
+npm install
+```
+
+3. Install backend dependencies
+
+```bash
+cd server
+npm install
+```
+
+4. Create a `.env` file inside the `server/` folder
+
+```
+PORT=3000
+FOOTBALL_API_KEY=your_api_key_here
+```
+
+## Running the app
+
+Start the backend — from the `server/` folder:
+
+```bash
+npm run dev
+```
+
+Start the frontend — from the project root:
+
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
