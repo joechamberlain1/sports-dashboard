@@ -11,7 +11,7 @@ const MatchCard = ( {match} ) => {
   const badge = getStatusBadge(match.status)
 
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 m-6 text-white min-w-max">
+    <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 mb-3 text-white flex flex-col justify-between min-h-32">
       {/* Top row: competition name + status badge */}
       <div className="flex justify-between items-center mb-3">
         <span className="text-gray-400 text-xs">{match.competition.name}</span>
