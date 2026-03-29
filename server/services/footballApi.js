@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const fetchMatches = async () => {
-    const response = await axios.get('https://api.football-data.org/v4/matches', {
+    const response = await axios.get('https://api.football-data.org/v4/teams/67/matches?status=SCHEDULED', {
     headers: {
         'X-Auth-Token': process.env.FOOTBALL_API_KEY
         }   
