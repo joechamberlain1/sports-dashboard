@@ -1,25 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useWebSocket from './hooks/useWebSocket'
 import Header from './components/Header'
-import MatchCard from './components/MatchCard'
+import MatchList from './components/MatchList'
+import { getMatches } from './services/matchesApi'
 
 function App() {
-
+  const [matches, setMatches] = useState([])
   const message = useWebSocket()
+
+  useEffect(() => {
+    const loadMatches = async () => {
+      const data = await getMatches()
+      console.log('data from API:', data)
+      setMatches(data)
+    }
+    loadMatches()
+  }, [])
+
+  useEffect(() => {
+    if (message) setMatches(message)
+  }, [message])
 
   return (
     <>
-      {message && message.message}     
       <Header />
-      <MatchCard match={{
-      homeTeam: { name: 'Arsenal' },
-      awayTeam: { name: 'Chelsea' },
-      utcDate: '2026-03-26T14:00:00Z',
-      status: 'TIMED',
-      score: {
-        fullTime: { home: null, away: null }
-      }
-      }} />
+      <MatchList matches={matches} />
     </>
   )
 }

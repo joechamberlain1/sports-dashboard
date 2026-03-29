@@ -6,6 +6,7 @@ const fetchMatches = async () => {
         'X-Auth-Token': process.env.FOOTBALL_API_KEY
         }   
     })
+    console.log('matches count:', response.data.matches.length)
     return response.data.matches
 }
 
