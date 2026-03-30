@@ -6,25 +6,30 @@ import { getMatches } from './services/matchesApi'
 
 function App() {
   const [matches, setMatches] = useState([])
+  const [loading, setLoading] = useState(true)
   const message = useWebSocket()
 
   useEffect(() => {
     const loadMatches = async () => {
       const data = await getMatches()
-      console.log('data from API:', data)
-      setMatches(data)
+      const sorted = data.sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate))
+      setMatches(sorted)
+      setLoading(false)
     }
     loadMatches()
   }, [])
 
   useEffect(() => {
-    if (message) setMatches(message)
+    if (message) {
+      const sorted = message.sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate))
+      setMatches(sorted)
+    }
   }, [message])
 
   return (
   <div className="bg-gray-950 min-h-screen p-6">
       <Header />
-      <MatchList matches={matches} />
+      {loading ? <div className="text-white text-center mt-32 text-xl">LOADING</div> : <MatchList matches={matches}/>}
     </div>
   )
 }
