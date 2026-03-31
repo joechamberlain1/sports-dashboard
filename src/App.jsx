@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const loadMatches = async () => {
       const data = await getMatches()
-      const sorted = data.sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate))
+      const sorted = data.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate))
       setMatches(sorted)
       setLoading(false)
     }
@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     if (message) {
-      const sorted = message.sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate))
+      const sorted = message.sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate))
       setMatches(sorted)
     }
   }, [message])
